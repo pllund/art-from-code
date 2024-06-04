@@ -1,18 +1,18 @@
 ---
 title: "working_creative_193ds"
-format: html
+format: 
+  html: 
+    toc: true
 ---
 
-
 **Choose Your Own Assignment - Generative Art**
+**Workshop (structured only)**
 
-**Part 2b: Workshop (structured only)**
+## Part 2b: Introductory Exercises
 
-**Introductory Exercises**
+### Art is Theft Exercise
 
-***Art is theft***
-
-*Exercise*: Try it yourself! Using nothing other than ggplot2 and the mpg data set, create your own artwork. Don’t take too long: 3 minutes at the absolute most! See what you can come up with in that time!
+Try it yourself! Using nothing other than ggplot2 and the mpg data set, create your own artwork. Don’t take too long: 3 minutes at the absolute most! See what you can come up with in that time!
 
 ```{r, message=FALSE, warning=FALSE}
 #load in necessary packages 
@@ -33,9 +33,7 @@ ggplot(data = mpg,
   scale_color_brewer()
 ```
 
-***Technique***
-
-*Exercises*:
+### Technique Exercises
 
 1.  In the materials folder there is a file called `polar_art.R` that contains a copy of the `polar_art()` function. Open it and use the `polar_art()` function to generate your own pieces. Try changing the `seed`, `n`, and the `palette` to create a variety of different pieces.
 
@@ -98,7 +96,6 @@ polar_art(seed = 45,
 
 2.  Create a new file called `polar_art_02.R` that contains the `polar_art()` function. In the new file, try modifying the `polar_art()` function itself to see if you can create your own new system.
 
-
 ```{r}
 #changing the actual polar_art to polar_art_02 to change this aspect of the original code
 
@@ -155,9 +152,7 @@ polar_art(seed = 81,
 #The artist could want to be able to name their files the old-fashioned way in order to keep track of their work and be able to reproduce what they have created and/or add onto their work in the future. Additionally, the files could be named this way in order to represent where they were created from, so the audience knows that the figures are originally from data wrangling in R. 
 ```
 
-***Color***
-
-*Exercises*:
+### Color Exercises
 
 1.  In the materials folder there is a file called `palette-generators.R` that contains a copy of the `sample_canva()` function. Take a look and try calling the function a few times to see what kind of output it produces. You may find it handy to use `show_col()` to visualise the results.
 
@@ -237,7 +232,7 @@ sample_canva <- function(seed = NULL) {
 polar_art(seed = 659, n = 600, palette = sample_canva(seed = 659))
 ```
 
-***Composition***
+### Composition Exercises
 
 1.  In the materials folder there is a file called `polar-styled-plots.R` that contains a copy of the `sample_canva()`, `sample_data()` and `polar_styled_plot()` functions. Without modifying any of these three functions, explore how much flexibility you have to make different pieces in which (1) data are generated with `sample_data()`, (2) the plot is initialised by calling `polar_styled_plot()`, and (3) the piece is created by adding ggplot2 geoms. Data manipulation with dplyr is allowed!
 
@@ -381,11 +376,10 @@ polar_styled_plot(data = dat, palette = pal) +
 
 ```
 
-**Part 2c: Workshop (structured only)**
+## Part 2c: Art Of Your Choice Exercises: Spatial Noise 
 
-**Art Of Your Choice Exercises: *Spatial Noise Tricks***
 
-**Sampling Spatial Patterns**
+### Sampling Spatial Patterns Exercise
 
 ```{r, message=FALSE, warning=FALSE}
 #load in necessary packages
@@ -459,11 +453,12 @@ pic <- dat |>
 #print the picture we have created above in pic 
 plot(pic)
 ```
-**Our First System**
+
+### Our First System Exercises
 
 Exercises:
 
-1. In the materials folder there is a file called make-noise-art.R that includes the make_noise_art() function. Unlike the code I’ve shown here, the version in the script writes the output to a file (located at output/noise-art.png). Try playing around with the inputs to make_noise_art() to see what outputs you can create.
+1.  In the materials folder there is a file called make-noise-art.R that includes the make_noise_art() function. Unlike the code I’ve shown here, the version in the script writes the output to a file (located at output/noise-art.png). Try playing around with the inputs to make_noise_art() to see what outputs you can create.
 
 ```{r}
 #install new package for this section
@@ -556,7 +551,7 @@ plot(art)
 
 ```
 
-2. At the moment, the script is set up so that the output is always written to the same file, output/noise-art.png. When you create your own generative art systems you will want to ensure that each unique output is written to a file with a unique filename, and that this filename should (ideally!) allow you to work out what inputs were used to create the piece. How would you write code to do this? 
+2.  At the moment, the script is set up so that the output is always written to the same file, output/noise-art.png. When you create your own generative art systems you will want to ensure that each unique output is written to a file with a unique filename, and that this filename should (ideally!) allow you to work out what inputs were used to create the piece. How would you write code to do this?
 
 ```{r}
 #In order to write the code to do this you just need to change the name of the file within the ggsave function under filename... so in the code below I changed the code to be different and commented it out for reference. 
@@ -575,7 +570,7 @@ plot(art)
   #dpi = 300)
 ```
 
-**Why dplyr is a girls best friend**
+### Why dplyr is a Girls Best Friend Exercises
 
 Exercise: Try it yourself! In the materials folder there is a script called dplyr-ambient.R that defines blank_canvas and plot_painted_canvas() for you. At the bottom of the file there is space for you to add to the blank canvas. Try using dplyr and ambient together to create a spatial noise pattern of your own.
 
@@ -618,13 +613,13 @@ blank_canvas |>
   plot_painted_canvas(palette = sample_canva(seed = 498))
 ```
 
-**Fractals**
+### Fractals Exercises
 
 The fractal_art.R script in the materials folder contains all the setup you need to play around with the fractal_art() function. Try using it to explore the possibilities! There are a lot of possibilities in fractals. Here are a few ideas to get you started:
 
-Exercises: 
+Exercises:
 
-1. The easiest way to play around with fractals is to modify the basic arguments. Try changing the generator, fractal, freq_init (i.e., frequency value for the first octave), octaves, seed, and palette to make a piece you really like.
+1.  The easiest way to play around with fractals is to modify the basic arguments. Try changing the generator, fractal, freq_init (i.e., frequency value for the first octave), octaves, seed, and palette to make a piece you really like.
 
 ```{r}
 library(purrr)
@@ -671,21 +666,21 @@ fractal_art <- function(fractal, generator, palette = NULL, ...) {
 fractal_art(fbm, gen_spheres, seed = 78, octaves = 90)
 ```
 
-2. A fun inversion: use those same arguments to create something that you find incredibly ugly!
+2.  A fun inversion: use those same arguments to create something that you find incredibly ugly!
 
 ```{r}
 #changing same aspects to make it really ugly
 fractal_art(fbm, gen_checkerboard, seed = 54, octaves = 3)
 ```
 
-3. The fractal_art() function is written flexibly enough that you can pass your own gain functions and frequency functions. There’s an example of this above. Try writing your own functions to modify the gain and frequency rules that apply to the fractal.
+3.  The fractal_art() function is written flexibly enough that you can pass your own gain functions and frequency functions. There’s an example of this above. Try writing your own functions to modify the gain and frequency rules that apply to the fractal.
 
 ```{r}
 gf <- function(x) x * .05
 fractal_art(ridged, gen_simplex, seed = 54, octaves = 4, gain = gf)
 ```
 
-4. Using the gen_scope() and gen_gate() examples to motivate you, write your own generator function. See what effect that has.
+4.  Using the gen_scope() and gen_gate() examples to motivate you, write your own generator function. See what effect that has.
 
 ```{r}
 gen_scope <- function(x, y, frequency, ...) {
@@ -705,13 +700,13 @@ pal <- sample_canva(seed = 14)
 fractal_art(billow, gen_scope, palette = pal, seed = 15, octaves = 6)
 ```
 
-**Curl (of a spatial) noise (pattern)**
+### Curl (of a Spatial) Noise (Pattern) Exercises
 
 The curl-art-1.R and curl-art-2.R scripts contain code to generate the “small grid of fractal walks” image and the “genesis-inspired” image. In both cases the ouput is written to a 2000x2000 pixel png file, and the time taken to complete the task printed to the screen.
 
-Exercise: 
+Exercise:
 
-1. Run both scripts, and compare the difference in rendering times
+1.  Run both scripts, and compare the difference in rendering times
 
 ```{r}
 library(tictoc)
@@ -862,7 +857,7 @@ ggsave(
 toc()
 ```
 
-2. Modify the “small grid” version so that it produces smoother looking results.
+2.  Modify the “small grid” version so that it produces smoother looking results.
 
 ```{r}
 
@@ -925,7 +920,7 @@ toc()
 plot(pic)
 ```
 
-3. Explore what you can do with the “genesis style”. It’s a powerful technique that can do a lot more than I’ve done in this code. By now you should have a good sense of what dials you can turn: the fractal, the generator, the parameters, the palette, etc. You can use dplyr to modify the data if you want to. Try to make something you really like!
+3.  Explore what you can do with the “genesis style”. It’s a powerful technique that can do a lot more than I’ve done in this code. By now you should have a good sense of what dials you can turn: the fractal, the generator, the parameters, the palette, etc. You can use dplyr to modify the data if you want to. Try to make something you really like!
 
 ```{r}
 
@@ -959,10 +954,7 @@ ggplot(mapping = aes(x, y, group = time)) +
   coord_equal()
 ```
 
-
-**Part 2d: Workshop (structured only)**
-
-**Art Of Your Choice: Iterated Function Systems**
+## Part 2d: Art Of Your Choice: Iterated Function Systems
 
 ```{r}
 library(Rcpp)
@@ -974,7 +966,7 @@ library(ggthemes)
 library(tictoc)
 ```
 
-Some tiresome formalism
+### Some Tiresome Formalism Exercise
 
 Exercise: Code for this system is included in the barnsley-fern.R script.
 
@@ -1061,7 +1053,7 @@ plot(pic)
 
 ```
 
-Chaos Game for the Barnsley Fern
+### Chaos Game for the Barnsley Fern Exercise
 
 Exercise: Code for this system is included in the unbox-base.R script.
 
@@ -1176,13 +1168,3 @@ toc()
 plot(pic)
 
 ```
-
-
-
-
-
-
-
-
-
-

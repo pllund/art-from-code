@@ -71,10 +71,37 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </head>
 
-<body class="fullcontent">
+<body>
 
 <div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
-
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#part-2b-introductory-exercises" id="toc-part-2b-introductory-exercises" class="nav-link active" data-scroll-target="#part-2b-introductory-exercises">Part 2b: Introductory Exercises</a>
+  <ul class="collapse">
+  <li><a href="#art-is-theft-exercise" id="toc-art-is-theft-exercise" class="nav-link" data-scroll-target="#art-is-theft-exercise">Art is Theft Exercise</a></li>
+  <li><a href="#technique-exercises" id="toc-technique-exercises" class="nav-link" data-scroll-target="#technique-exercises">Technique Exercises</a></li>
+  <li><a href="#color-exercises" id="toc-color-exercises" class="nav-link" data-scroll-target="#color-exercises">Color Exercises</a></li>
+  <li><a href="#composition-exercises" id="toc-composition-exercises" class="nav-link" data-scroll-target="#composition-exercises">Composition Exercises</a></li>
+  </ul></li>
+  <li><a href="#part-2c-art-of-your-choice-exercises-spatial-noise" id="toc-part-2c-art-of-your-choice-exercises-spatial-noise" class="nav-link" data-scroll-target="#part-2c-art-of-your-choice-exercises-spatial-noise">Part 2c: Art Of Your Choice Exercises: Spatial Noise</a>
+  <ul class="collapse">
+  <li><a href="#sampling-spatial-patterns-exercise" id="toc-sampling-spatial-patterns-exercise" class="nav-link" data-scroll-target="#sampling-spatial-patterns-exercise">Sampling Spatial Patterns Exercise</a></li>
+  <li><a href="#our-first-system-exercises" id="toc-our-first-system-exercises" class="nav-link" data-scroll-target="#our-first-system-exercises">Our First System Exercises</a></li>
+  <li><a href="#why-dplyr-is-a-girls-best-friend-exercises" id="toc-why-dplyr-is-a-girls-best-friend-exercises" class="nav-link" data-scroll-target="#why-dplyr-is-a-girls-best-friend-exercises">Why dplyr is a Girls Best Friend Exercises</a></li>
+  <li><a href="#fractals-exercises" id="toc-fractals-exercises" class="nav-link" data-scroll-target="#fractals-exercises">Fractals Exercises</a></li>
+  <li><a href="#curl-of-a-spatial-noise-pattern-exercises" id="toc-curl-of-a-spatial-noise-pattern-exercises" class="nav-link" data-scroll-target="#curl-of-a-spatial-noise-pattern-exercises">Curl (of a Spatial) Noise (Pattern) Exercises</a></li>
+  </ul></li>
+  <li><a href="#part-2d-art-of-your-choice-iterated-function-systems" id="toc-part-2d-art-of-your-choice-iterated-function-systems" class="nav-link" data-scroll-target="#part-2d-art-of-your-choice-iterated-function-systems">Part 2d: Art Of Your Choice: Iterated Function Systems</a>
+  <ul class="collapse">
+  <li><a href="#some-tiresome-formalism-exercise" id="toc-some-tiresome-formalism-exercise" class="nav-link" data-scroll-target="#some-tiresome-formalism-exercise">Some Tiresome Formalism Exercise</a></li>
+  <li><a href="#chaos-game-for-the-barnsley-fern-exercise" id="toc-chaos-game-for-the-barnsley-fern-exercise" class="nav-link" data-scroll-target="#chaos-game-for-the-barnsley-fern-exercise">Chaos Game for the Barnsley Fern Exercise</a></li>
+  </ul></li>
+  </ul>
+</nav>
+</div>
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
@@ -96,11 +123,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p><strong>Choose Your Own Assignment - Generative Art</strong></p>
-<p><strong>Part 2b: Workshop (structured only)</strong></p>
-<p><strong>Introductory Exercises</strong></p>
-<p><strong><em>Art is theft</em></strong></p>
-<p><em>Exercise</em>: Try it yourself! Using nothing other than ggplot2 and the mpg data set, create your own artwork. Don’t take too long: 3 minutes at the absolute most! See what you can come up with in that time!</p>
+<p><strong>Choose Your Own Assignment - Generative Art</strong> <strong>Workshop (structured only)</strong></p>
+<section id="part-2b-introductory-exercises" class="level2">
+<h2 class="anchored" data-anchor-id="part-2b-introductory-exercises">Part 2b: Introductory Exercises</h2>
+<section id="art-is-theft-exercise" class="level3">
+<h3 class="anchored" data-anchor-id="art-is-theft-exercise">Art is Theft Exercise</h3>
+<p>Try it yourself! Using nothing other than ggplot2 and the mpg data set, create your own artwork. Don’t take too long: 3 minutes at the absolute most! See what you can come up with in that time!</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#load in necessary packages </span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
@@ -126,8 +154,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p><strong><em>Technique</em></strong></p>
-<p><em>Exercises</em>:</p>
+</section>
+<section id="technique-exercises" class="level3">
+<h3 class="anchored" data-anchor-id="technique-exercises">Technique Exercises</h3>
 <ol type="1">
 <li>In the materials folder there is a file called <code>polar_art.R</code> that contains a copy of the <code>polar_art()</code> function. Open it and use the <code>polar_art()</code> function to generate your own pieces. Try changing the <code>seed</code>, <code>n</code>, and the <code>palette</code> to create a variety of different pieces.</li>
 </ol>
@@ -263,8 +292,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">#The artist could want to be able to name their files the old-fashioned way in order to keep track of their work and be able to reproduce what they have created and/or add onto their work in the future. Additionally, the files could be named this way in order to represent where they were created from, so the audience knows that the figures are originally from data wrangling in R. </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p><strong><em>Color</em></strong></p>
-<p><em>Exercises</em>:</p>
+</section>
+<section id="color-exercises" class="level3">
+<h3 class="anchored" data-anchor-id="color-exercises">Color Exercises</h3>
 <ol type="1">
 <li>In the materials folder there is a file called <code>palette-generators.R</code> that contains a copy of the <code>sample_canva()</code> function. Take a look and try calling the function a few times to see what kind of output it produces. You may find it handy to use <code>show_col()</code> to visualise the results.</li>
 </ol>
@@ -380,7 +410,9 @@ Attaching package: 'scales'</code></pre>
 </div>
 </div>
 </div>
-<p><strong><em>Composition</em></strong></p>
+</section>
+<section id="composition-exercises" class="level3">
+<h3 class="anchored" data-anchor-id="composition-exercises">Composition Exercises</h3>
 <ol type="1">
 <li>In the materials folder there is a file called <code>polar-styled-plots.R</code> that contains a copy of the <code>sample_canva()</code>, <code>sample_data()</code> and <code>polar_styled_plot()</code> functions. Without modifying any of these three functions, explore how much flexibility you have to make different pieces in which (1) data are generated with <code>sample_data()</code>, (2) the plot is initialised by calling <code>polar_styled_plot()</code>, and (3) the piece is created by adding ggplot2 geoms. Data manipulation with dplyr is allowed!</li>
 </ol>
@@ -547,9 +579,12 @@ yend, colour, and size.
 </div>
 </div>
 </div>
-<p><strong>Part 2c: Workshop (structured only)</strong></p>
-<p><strong>Art Of Your Choice Exercises: <em>Spatial Noise Tricks</em></strong></p>
-<p><strong>Sampling Spatial Patterns</strong></p>
+</section>
+</section>
+<section id="part-2c-art-of-your-choice-exercises-spatial-noise" class="level2">
+<h2 class="anchored" data-anchor-id="part-2c-art-of-your-choice-exercises-spatial-noise">Part 2c: Art Of Your Choice Exercises: Spatial Noise</h2>
+<section id="sampling-spatial-patterns-exercise" class="level3">
+<h3 class="anchored" data-anchor-id="sampling-spatial-patterns-exercise">Sampling Spatial Patterns Exercise</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co">#load in necessary packages</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
@@ -627,7 +662,9 @@ yend, colour, and size.
 </div>
 </div>
 </div>
-<p><strong>Our First System</strong></p>
+</section>
+<section id="our-first-system-exercises" class="level3">
+<h3 class="anchored" data-anchor-id="our-first-system-exercises">Our First System Exercises</h3>
 <p>Exercises:</p>
 <ol type="1">
 <li>In the materials folder there is a file called make-noise-art.R that includes the make_noise_art() function. Unlike the code I’ve shown here, the version in the script writes the output to a file (located at output/noise-art.png). Try playing around with the inputs to make_noise_art() to see what outputs you can create.</li>
@@ -749,7 +786,9 @@ yend, colour, and size.
 <span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>  <span class="co">#units = "px",</span></span>
 <span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>  <span class="co">#dpi = 300)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p><strong>Why dplyr is a girls best friend</strong></p>
+</section>
+<section id="why-dplyr-is-a-girls-best-friend-exercises" class="level3">
+<h3 class="anchored" data-anchor-id="why-dplyr-is-a-girls-best-friend-exercises">Why dplyr is a Girls Best Friend Exercises</h3>
 <p>Exercise: Try it yourself! In the materials folder there is a script called dplyr-ambient.R that defines blank_canvas and plot_painted_canvas() for you. At the bottom of the file there is space for you to add to the blank canvas. Try using dplyr and ambient together to create a spatial noise pattern of your own.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>sample_canva <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">seed =</span> <span class="cn">NULL</span>) {</span>
@@ -796,7 +835,9 @@ yend, colour, and size.
 </div>
 </div>
 </div>
-<p><strong>Fractals</strong></p>
+</section>
+<section id="fractals-exercises" class="level3">
+<h3 class="anchored" data-anchor-id="fractals-exercises">Fractals Exercises</h3>
 <p>The fractal_art.R script in the materials folder contains all the setup you need to play around with the fractal_art() function. Try using it to explore the possibilities! There are a lot of possibilities in fractals. Here are a few ideas to get you started:</p>
 <p>Exercises:</p>
 <ol type="1">
@@ -908,7 +949,9 @@ yend, colour, and size.
 </div>
 </div>
 </div>
-<p><strong>Curl (of a spatial) noise (pattern)</strong></p>
+</section>
+<section id="curl-of-a-spatial-noise-pattern-exercises" class="level3">
+<h3 class="anchored" data-anchor-id="curl-of-a-spatial-noise-pattern-exercises">Curl (of a Spatial) Noise (Pattern) Exercises</h3>
 <p>The curl-art-1.R and curl-art-2.R scripts contain code to generate the “small grid of fractal walks” image and the “genesis-inspired” image. In both cases the ouput is written to a 2000x2000 pixel png file, and the time taken to complete the task printed to the screen.</p>
 <p>Exercise:</p>
 <ol type="1">
@@ -975,7 +1018,7 @@ yend, colour, and size.
 <span id="cb30-58"><a href="#cb30-58" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb30-59"><a href="#cb30-59" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>0.524 sec elapsed</code></pre>
+<pre><code>0.498 sec elapsed</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co">#curl-art-2.R code</span></span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>curl_data <span class="ot">&lt;-</span> <span class="cf">function</span>(</span>
@@ -1063,7 +1106,7 @@ yend, colour, and size.
 <span id="cb32-84"><a href="#cb32-84" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb32-85"><a href="#cb32-85" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>3.896 sec elapsed</code></pre>
+<pre><code>3.811 sec elapsed</code></pre>
 </div>
 </div>
 <ol start="2" type="1">
@@ -1126,7 +1169,7 @@ yend, colour, and size.
 <span id="cb34-54"><a href="#cb34-54" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb34-55"><a href="#cb34-55" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>0.502 sec elapsed</code></pre>
+<pre><code>0.451 sec elapsed</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pic)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -1177,8 +1220,10 @@ yend, colour, and size.
 </div>
 </div>
 </div>
-<p><strong>Part 2d: Workshop (structured only)</strong></p>
-<p><strong>Art Of Your Choice: Iterated Function Systems</strong></p>
+</section>
+</section>
+<section id="part-2d-art-of-your-choice-iterated-function-systems" class="level2">
+<h2 class="anchored" data-anchor-id="part-2d-art-of-your-choice-iterated-function-systems">Part 2d: Art Of Your Choice: Iterated Function Systems</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Rcpp)</span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
@@ -1188,7 +1233,8 @@ yend, colour, and size.
 <span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggthemes)</span>
 <span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tictoc)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Some tiresome formalism</p>
+<section id="some-tiresome-formalism-exercise" class="level3">
+<h3 class="anchored" data-anchor-id="some-tiresome-formalism-exercise">Some Tiresome Formalism Exercise</h3>
 <p>Exercise: Code for this system is included in the barnsley-fern.R script.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>fern_transform <span class="ot">&lt;-</span> <span class="cf">function</span>(coord, ind) {</span>
@@ -1278,7 +1324,9 @@ yend, colour, and size.
 </div>
 </div>
 </div>
-<p>Chaos Game for the Barnsley Fern</p>
+</section>
+<section id="chaos-game-for-the-barnsley-fern-exercise" class="level3">
+<h3 class="anchored" data-anchor-id="chaos-game-for-the-barnsley-fern-exercise">Chaos Game for the Barnsley Fern Exercise</h3>
 <p>Exercise: Code for this system is included in the unbox-base.R script.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>sample_canva2 <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">seed =</span> <span class="cn">NULL</span>, <span class="at">n =</span> <span class="dv">4</span>) {</span>
@@ -1388,7 +1436,7 @@ yend, colour, and size.
 <span id="cb40-105"><a href="#cb40-105" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb40-106"><a href="#cb40-106" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>28.288 sec elapsed</code></pre>
+<pre><code>30.005 sec elapsed</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pic)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -1399,6 +1447,8 @@ yend, colour, and size.
 </div>
 </div>
 </div>
+</section>
+</section>
 
 </main>
 <!-- /main column -->
