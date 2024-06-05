@@ -330,7 +330,7 @@ polar_styled_plot(data = dat, palette = pal) +
 
 2.  In the examples above and the previous exercise you saw that the `polar_styled_plot()` function plays the role of defining an overarching “style” for possible art pieces, but it doesn’t completely constrain artistic freedom. Your task in this exercise is to try to write a `my_styled_plot()` that does something similar… but creates a different style that you can explore
 
-```{r}
+```{r, warning=FALSE}
 #sample palete a random using seed 
 sample_canva <- function(seed = NULL) {
   #set seed and restrictions
