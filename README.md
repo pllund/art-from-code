@@ -16,7 +16,7 @@ Research Focus: Exploring new forms of data visualization and understanding mech
 
 -   working_creative_193ds_files : accessory files for working_creative_193ds.html
 
-## Rendered Output 
+## Rendered Output
 
 The rendered .html for this repo is here:
 
