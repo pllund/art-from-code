@@ -105,6 +105,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#figure-1-caption" id="toc-figure-1-caption" class="nav-link" data-scroll-target="#figure-1-caption">Figure 1 Caption:</a></li>
   <li><a href="#art-piece-2" id="toc-art-piece-2" class="nav-link" data-scroll-target="#art-piece-2">Art Piece 2</a></li>
   <li><a href="#figure-2-caption" id="toc-figure-2-caption" class="nav-link" data-scroll-target="#figure-2-caption">Figure 2 Caption:</a></li>
+  <li><a href="#art-piece-3" id="toc-art-piece-3" class="nav-link" data-scroll-target="#art-piece-3">Art Piece 3</a></li>
+  <li><a href="#figure-3-caption" id="toc-figure-3-caption" class="nav-link" data-scroll-target="#figure-3-caption">Figure 3 Caption:</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -1025,7 +1027,7 @@ yend, colour, and size.
 <span id="cb30-58"><a href="#cb30-58" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb30-59"><a href="#cb30-59" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>0.368 sec elapsed</code></pre>
+<pre><code>0.377 sec elapsed</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co">#curl-art-2.R code</span></span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>curl_data <span class="ot">&lt;-</span> <span class="cf">function</span>(</span>
@@ -1113,7 +1115,7 @@ yend, colour, and size.
 <span id="cb32-84"><a href="#cb32-84" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb32-85"><a href="#cb32-85" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>2.767 sec elapsed</code></pre>
+<pre><code>2.809 sec elapsed</code></pre>
 </div>
 </div>
 <ol start="2" type="1">
@@ -1176,7 +1178,7 @@ yend, colour, and size.
 <span id="cb34-54"><a href="#cb34-54" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb34-55"><a href="#cb34-55" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>0.342 sec elapsed</code></pre>
+<pre><code>0.349 sec elapsed</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pic)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -1443,7 +1445,7 @@ yend, colour, and size.
 <span id="cb40-105"><a href="#cb40-105" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb40-106"><a href="#cb40-106" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>21.957 sec elapsed</code></pre>
+<pre><code>22.038 sec elapsed</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pic)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -1674,6 +1676,46 @@ unknown parameters: `stroke`</code></pre>
 <section id="figure-2-caption" class="level3">
 <h3 class="anchored" data-anchor-id="figure-2-caption">Figure 2 Caption:</h3>
 <p>Figure 2 Title: Spiderweb Void. Figure created: 06-4-24. Inspiration: I was inspired to create this piece because I wanted to see what I would be able to do without using colors to define the artwork. I really liked what Danielle Navarro did with one of her figures from the iterated function systems where she created art that looked like a cloud of smoke, and I wanted to create something that was inspried by this but more geometric. Specific Components: I utilized the sample_canva code from part b to set up my random seed generation for the rest of the code for the figure. Additionally, I used the geom_polygon function which we used in part c within the spatial noise exercises and added that to my ggplot to create a more dynamic figure. Lastly, I incorporated the code from part d (iterated function systems) via the ggplot code and the unboxer_base method.</p>
+</section>
+<section id="art-piece-3" class="level3">
+<h3 class="anchored" data-anchor-id="art-piece-3">Art Piece 3</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a><span class="co">#FROM PART B - introductory exercises</span></span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>pal <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"#cdb4db"</span>, <span class="st">"#ffc8dd"</span>, <span class="st">"#ffafcc"</span>, <span class="st">"#bde0fe"</span>, <span class="st">"#a2d2ff"</span>)</span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a><span class="co">#FROM PART C - spatial noise tricks</span></span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a>smol_simplex <span class="ot">&lt;-</span> smol_grid <span class="sc">|&gt;</span></span>
+<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">z =</span> <span class="fu">gen_simplex</span>(x, y, <span class="at">seed =</span> <span class="dv">1</span>, <span class="at">frequency =</span> .<span class="dv">1</span>)) </span>
+<span id="cb47-9"><a href="#cb47-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-10"><a href="#cb47-10" aria-hidden="true" tabindex="-1"></a>smol_simplex <span class="sc">|&gt;</span></span>
+<span id="cb47-11"><a href="#cb47-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(x, y, <span class="at">z =</span> z)) <span class="sc">+</span> </span>
+<span id="cb47-12"><a href="#cb47-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_tile</span>(<span class="fu">aes</span>(<span class="at">fill =</span> z)) <span class="sc">+</span>  <span class="co"># Change to geom_tile() for more regular rasterization</span></span>
+<span id="cb47-13"><a href="#cb47-13" aria-hidden="true" tabindex="-1"></a>  <span class="co">#FROM PART D - iterative function systems to add in white dots to the figure! </span></span>
+<span id="cb47-14"><a href="#cb47-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">colour =</span> <span class="st">"white"</span>, <span class="at">size =</span> <span class="fl">0.6</span>, <span class="at">stroke =</span> <span class="dv">0</span>) <span class="sc">+</span> </span>
+<span id="cb47-15"><a href="#cb47-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">5</span>)) <span class="sc">+</span></span>
+<span id="cb47-16"><a href="#cb47-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">5</span>)) <span class="sc">+</span> </span>
+<span id="cb47-17"><a href="#cb47-17" aria-hidden="true" tabindex="-1"></a>  <span class="co">#FROM PART B - introductory exercises changing the color gradient to the palette we originally created</span></span>
+<span id="cb47-18"><a href="#cb47-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_gradientn</span>(<span class="at">colors =</span> pal, </span>
+<span id="cb47-19"><a href="#cb47-19" aria-hidden="true" tabindex="-1"></a>                       <span class="co">#setting guide so we don't see any legend showing up </span></span>
+<span id="cb47-20"><a href="#cb47-20" aria-hidden="true" tabindex="-1"></a>                       <span class="at">guide =</span> <span class="st">"none"</span>) <span class="sc">+</span>  </span>
+<span id="cb47-21"><a href="#cb47-21" aria-hidden="true" tabindex="-1"></a>  <span class="co">#setting blank theme</span></span>
+<span id="cb47-22"><a href="#cb47-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>() <span class="sc">+</span> </span>
+<span id="cb47-23"><a href="#cb47-23" aria-hidden="true" tabindex="-1"></a>  <span class="co">#setting coord requirements to standard</span></span>
+<span id="cb47-24"><a href="#cb47-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_equal</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="working_creative_193ds_files/figure-html/unnamed-chunk-27-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="figure-3-caption" class="level3">
+<h3 class="anchored" data-anchor-id="figure-3-caption">Figure 3 Caption:</h3>
+<p>Figure 3 Title: Cotton-Candy Code. Figure created: 06-4-24. Inspiration: For my final artpiece I really wanted to focus on color, specifically utilizing a color palette that I curated myself and really liked. I though that the combination of pink and blue was a fun representation of the colors of cotton-candy. Specific Components: I selected my palette using references to code from part b the introductory lesson. Additionally, I used spatial noise tricks from part c to create the grid-like shape of the piece and the general ggplot. Lastly, I used the geom_point and specifically stroke function from part d of iterative function systems to add in little white dots and add dimension to the figure.</p>
 </section>
 </section>
 

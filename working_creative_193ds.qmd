@@ -1361,8 +1361,34 @@ unboxer_base(3 * mil, layers = 3, seed = 2) |>
 ### Figure 2 Caption: 
 Figure 2 Title: Spiderweb Void. Figure created: 06-4-24. Inspiration: I was inspired to create this piece because I wanted to see what I would be able to do without using colors to define the artwork. I really liked what Danielle Navarro did with one of her figures from the iterated function systems where she created art that looked like a cloud of smoke, and I wanted to create something that was inspried by this but more geometric. Specific Components: I utilized the sample_canva code from part b to set up my random seed generation for the rest of the code for the figure. Additionally, I used the geom_polygon function which we used in part c within the spatial noise exercises and added that to my ggplot to create a more dynamic figure. Lastly, I incorporated the code from part d (iterated function systems) via the ggplot code and the unboxer_base method. 
 
+### Art Piece 3
 
+```{r}
+library(ggplot2)
 
+#FROM PART B - introductory exercises
+pal <- c("#cdb4db", "#ffc8dd", "#ffafcc", "#bde0fe", "#a2d2ff")
 
+#FROM PART C - spatial noise tricks
+smol_simplex <- smol_grid |>
+  mutate(z = gen_simplex(x, y, seed = 1, frequency = .1)) 
 
+smol_simplex |>
+  ggplot(aes(x, y, z = z)) + 
+  geom_tile(aes(fill = z)) +  # Change to geom_tile() for more regular rasterization
+  #FROM PART D - iterative function systems to add in white dots to the figure! 
+  geom_point(colour = "white", size = 0.6, stroke = 0) + 
+  scale_y_continuous(expand = c(0, 5)) +
+  scale_x_continuous(expand = c(0, 5)) + 
+  #FROM PART B - introductory exercises changing the color gradient to the palette we originally created
+  scale_fill_gradientn(colors = pal, 
+                       #setting guide so we don't see any legend showing up 
+                       guide = "none") +  
+  #setting blank theme
+  theme_void() + 
+  #setting coord requirements to standard
+  coord_equal() 
+```
 
+### Figure 3 Caption: 
+Figure 3 Title: Cotton-Candy Code. Figure created: 06-4-24. Inspiration: For my final artpiece I really wanted to focus on color, specifically utilizing a color palette that I curated myself and really liked. I though that the combination of pink and blue was a fun representation of the colors of cotton-candy. Specific Components: I selected my palette using references to code from part b the introductory lesson. Additionally, I used spatial noise tricks from part c to create the grid-like shape of the piece and the general ggplot. Lastly, I used the geom_point and specifically stroke function from part d of iterative function systems to add in little white dots and add dimension to the figure. 
