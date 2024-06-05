@@ -1152,102 +1152,124 @@ plot(pic)
 Exercise: Code for this system is included in the unbox-base.R script.
 
 ```{r}
+#new object name and seed again and set n at 4
 sample_canva2 <- function(seed = NULL, n = 4) {
-  
+  #set random generation
   if(!is.null(seed)) set.seed(seed)
+  #set themes for palettes
   sample(ggthemes::canva_palettes, 1)[[1]] |>
     (\(x) colorRampPalette(x)(n))()  
 }
-
+#set list and assign to new object
 funs <- list(
+  #use function and point to sum data
   function(point) point + (sum(point ^ 2)) ^ (1/3),
+  #use sin of the point
   function(point) sin(point),
+  #multiply by 2
   function(point) 2 * sin(point)
 )
-
+#use function and iterations and layers
 unboxer_base <- function(iterations, layers, seed = NULL) {
-  
+  #random seed generation
   if(!is.null(seed)) set.seed(seed)
   
-  # coefficients defining affine layer transforms, A_i
+  #coefficients defining affine layer transforms, A_i
   coeffs <- array(
+    #select data and min and max
     data = runif(9 * layers, min = -1, max = 1), 
+    #set dimensions
     dim = c(3, 3, layers)
   )
   
-  # list of variant functions, g_j
+  #list of variant functions, g_j
   funs <- list(
+    #funtion and sum
     function(point) point + (sum(point ^ 2)) ^ (1/3),
+    #function and sin of point
     function(point) sin(point),
+    #functiona and multiply sin of point
     function(point) 2 * sin(point)
   )
   
-  # updater function: apply the layer, then the function
-  # (the weirdness with point[3] is me treating colour as special)
+  #updater function: apply the layer, then the function
+  #(the weirdness with point[3] is me treating colour as special)
   update <- function(point, layer, transform) {
+    #transform function
     f <- funs[[transform]]
+    #transform point to 3
     z <- point[3]
+    #assign point
     point[3] <- 1
+    #assignemt of point and coeff
     point <- f(point %*% coeffs[,,layer])
+    #another point and divide by 2
     point[3] <- (point[3] + z)/2
+    #show output
     return(point)
   }
   
-  # initial point
-  point0 <- matrix(
-    data = runif(3, min = -1, max = 1), 
-    nrow = 1,
-    ncol = 3
+  #set initial point and matrix data and min and max and rows and columns
+  point0 <- matrix(data = runif(3, min = -1, max = 1), nrow = 1, ncol = 3
   )
   
-  # sample points
+  #sample points
   layer_ind <- sample(layers, iterations, replace = TRUE)  
+  #sample lenghts
   trans_ind <- sample(length(funs), iterations, replace = TRUE)  
+  #accumulate layers
   points <- accumulate2(layer_ind, trans_ind, update, .init = point0)
   
   # tidy up, add columns, and return
   points <- matrix(unlist(points), ncol = 3, byrow = TRUE)
-  points <- cbind(
-    points,
-    c(0, layer_ind),
-    c(0, trans_ind)
+  #bind points
+  points <- cbind(points, c(0, layer_ind), c(0, trans_ind)
   )
+  #show output
   return(points)
 }
-
+#unbox the data and set seed and size
 unbox_art <- function(data, seed = NULL, size = 1) {
   
-  # convert to data frame and sample a palette
+  #convert to data frame and sample a palette
   data <- data |> as.data.frame() |> as_tibble()
+  #set names and data
   names(data) <- c("x", "y", "c", "l", "t")[1:ncol(data)]
+  #set shades
   shades <- sample_canva2(seed)
   
-  # render image as a scatter plot
+  #render image as a scatter plot
   ggplot(data, aes(x, y, colour = c)) +
+    #geom point information
     geom_point(
       size = size,
       stroke = 0,
       show.legend = FALSE
     ) + 
+    #blank theme
     theme_void() + 
+    #coordinate limits
     coord_equal(xlim = c(-4, 4), ylim = c(-4, 4)) + 
+    #color gradient settings
     scale_colour_gradientn(colours = shades) + 
+    #set scales for x and y 
     scale_x_continuous(expand = c(0, 0)) +
     scale_y_continuous(expand = c(0, 0)) +
-    theme(panel.background = element_rect(
-      fill = shades[1], colour = shades[1]
+    #adjust theme 
+    theme(panel.background = element_rect(fill = shades[1], colour = shades[1]
     ))
 }
-
+#time it takes
 tic()
-
+#set seed and layers
 seed <- 1234
 layers <- 5
-
+#assign pic as new object and set base and layers and seed and unbox
 pic <- unboxer_base(1000000, layers = layers, seed = seed) |> 
   unbox_art(seed = seed, size = .2) 
+#set paste0 and layers and seed information and as png
 fname <- paste0("unboxer-base-", layers, "-", seed, ".png")
-
+#save file 
 ggsave(
   filename = here("output", fname), 
   plot = pic,
@@ -1256,11 +1278,10 @@ ggsave(
   units = "px",
   dpi = 300
 )
-
+#time
 toc()
-
+#show pic
 plot(pic)
-
 ```
 
 ## Part 2e: Pull It All Together
@@ -1268,40 +1289,45 @@ plot(pic)
 Create 3 art pieces that combines elements of what you learned from parts b-d.
 
 ### Art Piece 1
-```{r}
+```{r, warning=FALSE}
 
-# Function to generate random palettes
+#function to generate random palettes
 sample_canva <- function(seed = NULL) {
+  #set to random seed generation
   if(!is.null(seed)) set.seed(seed)
+  #select sample of canva_palettes
   sample(ggthemes::canva_palettes, 98)[[98]]
 }
 
-# Generate the spatial noise data
+#generate the spatial noise data
 generate_spatial_data <- function(seed_spatial, freq_spatial) {
+  #set x coordinates and lenght
   x_coords <- seq(from = 0, to = 1, length.out = 600)
+  #set y coordinates and lenght
   y_coords <- seq(from = 0, to = 1, length.out = 600)
+  #set canvas to long_grid and coordinates
   canvas <- long_grid(x = x_coords, y = y_coords)
+  #set dat and pipe in the mutate function
   dat <- canvas |> 
-    mutate(
-      paint = gen_simplex(
-        x = x, 
-        y = y, 
-        frequency = freq_spatial, 
-        seed = seed_spatial
+    #mutate data set x and y assignemtns
+    mutate(paint = gen_simplex(x = x, y = y, 
+        #set freuency and seed information
+        frequency = freq_spatial, seed = seed_spatial
       )
     )
+  #return information 
   return(dat)
 }
 
-# Function to create the mtcars figure with integrated spatial data and black borders
+#function to create the mtcars figure with integrated spatial data and black borders
 mtcars_figure <- function(seed, n, palette, seed_spatial, freq_spatial, fern_points) {
-  # Set the state of the random number generator
+  #set the state of the random number generator
   set.seed(seed)
   
-  # Generate the spatial data
+  #generate the spatial data
   spatial_data <- generate_spatial_data(seed_spatial, freq_spatial)
   
-  # Data frame containing random values for aesthetics
+  #data frame containing random values for aesthetics
   dat <- tibble(
     #set x and y values using runif command
     x0 = runif(n), y0 = runif(n),
@@ -1442,24 +1468,29 @@ plot(mtcars_seed)
 Figure 1 Title: A fern admist chaos. Figure created: 06-4-24. Inspiration: I was inspired to create this piece because I was really drawn to both the geometric shapes within the introductory lesson as well as the concept of being able to create artwork resembling nature within a technology like R Studio. I thought it would be fun to combine the two ideas of something that looks more technical with something that resembles nature to have an artistic juxtaposition. Specific Components: I utilized the random palette generator from the introductory exercises (part b) to get randomized data for the art piece as well as using the tibble function to create a new dataframe for these random values and set aesthetics. From part c which focused on spatial noise I used the method of generating spatial noise data, setting frequencies and seeds. Finally, from part d which focused on iterated function systems I included a smaller blue figure of a fern on top of the existing artpiece to create dimension through the Barnsley fern points method, setting up matrices and generating iterations.
 
 ### Art Piece 2
-```{r}
-#FROM PART B
+```{r, warning=FALSE}
+#FROM PART B using the sample_canvas object and setting n and seed
 sample_canva2 <- function(seed = NULL, n = 4) {
+  #random number generation
   if(!is.null(seed)) set.seed(seed)
+  #select sample using canva palettes and color ramp
   sample(ggthemes::canva_palettes, 1)[[1]] |>
     (\(x) colorRampPalette(x)(n))()  
 }
 
-#FROM PART D
+#FROM PART D using unbox object and setting seed and size
 unbox_art <- function(data, seed = NULL, size = 1) {
   
-  # convert to data frame and sample a palette
+  #convert to data frame and sample a palette
   data <- data |> as.data.frame() |> as_tibble()
+  #set names using vector of options
   names(data) <- c("x", "y", "c", "l", "t")[1:ncol(data)]
+  #set shades to sample_canva2 seed
   shades <- sample_canva2(seed)
   
-  # render image as a scatter plot
+  #render image as a scatter plot
   ggplot(data, aes(x, y, colour = c)) +
+    #select geom point and set size and stroke and disable legend
     geom_point(
       size = size,
       stroke = 0,
@@ -1467,20 +1498,29 @@ unbox_art <- function(data, seed = NULL, size = 1) {
     ) + 
     #FROM PART C - geom_polygon used in this case to add to existing ggplot
     geom_polygon(
+      #set size and stroke and disable legend here too
       size = size, 
       stroke = 0, 
       show.legend = FALSE) + 
+    #blank them
     theme_void() + 
+    #change coordinates limits
     coord_equal(xlim = c(-4, 4), ylim = c(-4, 4)) + 
+    #set color gradients
     scale_colour_gradientn(colours = shades) + 
+    #set x and y axis
     scale_x_continuous(expand = c(0, 0)) +
     scale_y_continuous(expand = c(0, 0)) +
+    #adjust theme for panel background
     theme(panel.background = element_rect(
       fill = shades[1], colour = shades[1]
     ))
 }
+#adjust number here
 mil <- 1000
+#time
 tic()
+#use this to select layers and seed and then unbox
 unboxer_base(3 * mil, layers = 3, seed = 2) |> 
   unbox_art(seed = 2, size = .9)
 ```
@@ -1489,21 +1529,26 @@ Figure 2 Title: Spiderweb Void. Figure created: 06-4-24. Inspiration: I was insp
 
 ### Art Piece 3
 
-```{r}
+```{r, warning=FALSE}
 library(ggplot2)
 
-#FROM PART B - introductory exercises
+#FROM PART B - introductory exercises selecting my favorite colors to use later
 pal <- c("#cdb4db", "#ffc8dd", "#ffafcc", "#bde0fe", "#a2d2ff")
 
-#FROM PART C - spatial noise tricks
+#FROM PART C - spatial noise tricks using smol_grid function
 smol_simplex <- smol_grid |>
+  #using mutate to set seed and frequency
   mutate(z = gen_simplex(x, y, seed = 1, frequency = .1)) 
 
+#again using smol_simplex
 smol_simplex |>
+  #assignment of x and y in ggplot 
   ggplot(aes(x, y, z = z)) + 
-  geom_tile(aes(fill = z)) +  # Change to geom_tile() for more regular rasterization
+  #change to geom_tile() for more regular rasterization
+  geom_tile(aes(fill = z)) +  
   #FROM PART D - iterative function systems to add in white dots to the figure! 
   geom_point(colour = "white", size = 0.6, stroke = 0) + 
+  #set scales to be continuous and expand them for x and y 
   scale_y_continuous(expand = c(0, 5)) +
   scale_x_continuous(expand = c(0, 5)) + 
   #FROM PART B - introductory exercises changing the color gradient to the palette we originally created
