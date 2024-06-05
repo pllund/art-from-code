@@ -1168,3 +1168,157 @@ toc()
 plot(pic)
 
 ```
+
+## Part 2e: Pull It All Together
+
+Create 3 art pieces that combines elements of what you learned from parts b-d.
+
+### Art Piece 1
+
+```{r}
+
+# Function to generate random palettes
+sample_canva <- function(seed = NULL) {
+  if(!is.null(seed)) set.seed(seed)
+  sample(ggthemes::canva_palettes, 98)[[98]]
+}
+
+# Generate the spatial noise data
+generate_spatial_data <- function(seed_spatial, freq_spatial) {
+  x_coords <- seq(from = 0, to = 1, length.out = 600)
+  y_coords <- seq(from = 0, to = 1, length.out = 600)
+  canvas <- long_grid(x = x_coords, y = y_coords)
+  dat <- canvas |> 
+    mutate(
+      paint = gen_simplex(
+        x = x, 
+        y = y, 
+        frequency = freq_spatial, 
+        seed = seed_spatial
+      )
+    )
+  return(dat)
+}
+
+# Function to create the mtcars figure with integrated spatial data and black borders
+mtcars_figure <- function(seed, n, palette, seed_spatial, freq_spatial, fern_points) {
+  # Set the state of the random number generator
+  set.seed(seed)
+  
+  # Generate the spatial data
+  spatial_data <- generate_spatial_data(seed_spatial, freq_spatial)
+  
+  # Data frame containing random values for aesthetics
+  dat <- tibble(
+    x0 = runif(n),
+    y0 = runif(n),
+    x1 = x0 + runif(n, min = -.2, max = .2),
+    y1 = y0 + runif(n, min = -.2, max = .2),
+    shade = runif(n), 
+    size = runif(n),
+    paint = sample(spatial_data$paint, n)
+  )
+  
+  # Plot segments with a black border in various colors using the generated palette
+  plot <- dat |> 
+    ggplot(aes(
+      x = x0,
+      y = y0,
+      xend = x1,
+      yend = y1,
+      colour = shade,
+      size = size,
+      fill = paint
+    )) +
+    geom_segment(show.legend = FALSE) +  
+    geom_raster(show.legend = FALSE) +
+    coord_equal() +
+    scale_y_continuous(expand = c(0, 0)) +
+    scale_x_continuous(expand = c(0, 0)) + 
+    scale_colour_gradientn(colours = palette) + 
+    scale_size(range = c(0, 10)) + 
+    scale_fill_gradientn(colours = sample_canva(seed_spatial)) +
+    theme_void() 
+  
+  # Add the fern points as an additional layer
+  plot <- plot + 
+    geom_point(data = fern_points, aes(x = x / 10, y = y / 10), color = "skyblue4", size = 0.2, alpha = 0.7, inherit.aes = FALSE)
+  
+  return(plot)
+}
+
+# Function to generate Barnsley fern points
+fern_transform <- function(coord, ind) {
+  if(ind == 1) {
+    mat <- matrix(c(0, 0, 0, .16), 2, 2)
+    off <- c(0, 0)
+  }
+  if(ind == 2) {
+    mat <- matrix(c(.85, -.04, .04, .85), 2, 2)
+    off <- c(0, 1.6)
+  }
+  if(ind == 3) {
+    mat <- matrix(c(.2, .23, -.26, .22), 2, 2)
+    off <- c(0, 1.6)
+  }
+  if(ind == 4) {
+    mat <- matrix(c(-.15, .26, .28, .24), 2, 2)
+    off <- c(0, .44)
+  }
+  coord <- mat %*% coord + off
+  return(coord)
+}
+
+fern_chaos <- function(iterations = 10000, seed = NULL) {
+  if(!is.null(seed)) set.seed(seed)
+  transform_index <- sample(
+    x = 1:4, 
+    size = iterations, 
+    replace= TRUE, 
+    prob = c(.01, .85, .07, .07)
+  )
+  start <- matrix(c(0, 0))
+  bind_to_column_matrix <- function(lst) {
+    do.call(cbind, lst)
+  }
+  coord_matrix <- transform_index |>
+    accumulate(fern_transform, .init = start) |>
+    bind_to_column_matrix() 
+  coord_df <- t(coord_matrix) |> 
+    as.data.frame() 
+  names(coord_df) <- c("x", "y")
+  coord_df <- coord_df |>
+    as_tibble() |>
+    mutate(
+      transform = c(0, transform_index),
+      iteration = row_number() - 1
+    )
+  return(coord_df)
+}
+
+# Generate a small number of fern points
+fern_points <- fern_chaos(iterations = 500, seed = 1)
+
+# Set parameters
+seed <- 45
+n <- 40
+palette <- c("grey90", "cadetblue4", "lightblue", "lightblue3", "grey95", "skyblue4")
+seed_spatial <- 100
+freq_spatial <- 10
+
+# Create the mtcars figure
+mtcars_seed <- mtcars_figure(seed = seed, n = n, palette = palette, seed_spatial = seed_spatial, freq_spatial = freq_spatial, fern_points = fern_points)
+
+# Plot the mtcars figure
+plot(mtcars_seed)
+
+
+
+```
+### Figure 1 Caption: 
+Figure 1 Title: A fern admist chaos. Figure created: 06-4-24. Inspiration: I was inspired to create this piece because I was really drawn to both the geometric shapes within the introductory lesson as well as the concept of being able to create artwork resembling nature within a technology like R Studio. I thought it would be fun to combine the two ideas of something that looks more technical with something that resembles nature to have an artistic juxtaposition. Specific Components: I utilized the random palette generator from the introductory exercises (part b) to get randomized data for the art piece as well as using the tibble function to create a new dataframe for these random values and set aesthetics. From part c which focused on spatial noise I used the method of generating spatial noise data, setting frequencies and seeds. Finally, from part d which focused on iterated function systems I included a smaller blue figure of a fern on top of the existing artpiece to create dimension through the Barnsley fern points method, setting up matrices and generating iterations.
+
+
+
+
+
