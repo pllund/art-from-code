@@ -1,12 +1,18 @@
 ---
-title: "working_creative_193ds"
+title: "Choose Your Own Assignment: Generative Art Workshop (structured)"
 format: 
   html: 
     toc: true
 ---
 
-**Choose Your Own Assignment - Generative Art**
-**Workshop (structured only)**
+**Name: Paige Lund**
+
+**Date: 06-05-24**
+
+## Part 2a: Get set up
+
+Link to GitHub repository: https://github.com/pllund/art-from-code 
+Link to rendered .html: https://pllund.github.io/art-from-code/working_creative_193ds.html 
 
 ## Part 2b: Introductory Exercises
 
@@ -38,42 +44,47 @@ ggplot(data = mpg,
 1.  In the materials folder there is a file called `polar_art.R` that contains a copy of the `polar_art()` function. Open it and use the `polar_art()` function to generate your own pieces. Try changing the `seed`, `n`, and the `palette` to create a variety of different pieces.
 
 ```{r, warning = FALSE}
+#load in relevant packages
 library(ggplot2)
 library(tibble)
 
+#assign object name and begin set up for seed process and setting palette
 polar_art <- function(seed, n, palette) {
-  
   # set the state of the random number generator
   set.seed(seed)
-  
   # data frame containing random values for 
   # aesthetics we might want to use in the art
   dat <- tibble(
-    x0 = runif(n),
-    y0 = runif(n),
+    #set x and y values using runif function
+    x0 = runif(n), y0 = runif(n),
+    #set x min and max 
     x1 = x0 + runif(n, min = -.2, max = .2),
+    #set Y min and max 
     y1 = y0 + runif(n, min = -.2, max = .2),
-    shade = runif(n), 
-    size = runif(n)
-  )
+    #set shading and size features of figure for polar_art
+    shade = runif(n), size = runif(n))
   
-  # plot segments in various colors, using 
-  # polar coordinates and a gradient palette
+  #plot segments in various colors, using polar coordinates and a gradient palette
   dat |> 
-    ggplot(aes(
-      x = x0,
-      y = y0,
-      xend = x1,
-      yend = y1,
-      colour = shade,
-      size = size
-    )) +
+    #start ggplot and set aesthetics
+    ggplot(aes(x = x0, y = y0,
+      #set ends for x and y in ggplot
+      xend = x1, yend = y1,
+      #set color and size ggplot specifications
+      colour = shade, size = size)) +
+    #apply geom_segment to show data this way and disable legend
     geom_segment(show.legend = FALSE) +
+    #make it so that the plot is swirly sort of
     coord_polar() +
+    #set y axis to standard
     scale_y_continuous(expand = c(0, 0)) +
+    #set x axis to standard
     scale_x_continuous(expand = c(0, 0)) + 
+    #set color gradient to use color palette
     scale_colour_gradientn(colours = palette) + 
+    #set scale size range and expand this to 10 
     scale_size(range = c(0, 10)) + 
+    #set to blank theme
     theme_void()
 }
 
@@ -99,7 +110,7 @@ polar_art(seed = 45,
 ```{r}
 #changing the actual polar_art to polar_art_02 to change this aspect of the original code
 
-#change object name to identify between the two 
+#use original polar_art for this and edits are reflected in polar_art_02
 polar_art <- function(seed, n, palette) {
   #set the seed to get random numbers for data
   set.seed(seed)
@@ -142,15 +153,11 @@ polar_art(seed = 81,
           n = 65, 
           #change the colors of the plot to be shades of pink
           palette = c("hotpink", "pink3", "lightpink"))
-
-
 ```
 
 3.  Something to think about: Usually in data science we try to avoid naming our files `my_file_version_1`, `my_file_version_2`, etc, and instead we place files under version control using git. Yet here I am in an art context, apparently giving the advice to fall back on the old-fashioned system of naming files with version numbers. Why might I be doing that?
 
-```{r}
-#The artist could want to be able to name their files the old-fashioned way in order to keep track of their work and be able to reproduce what they have created and/or add onto their work in the future. Additionally, the files could be named this way in order to represent where they were created from, so the audience knows that the figures are originally from data wrangling in R. 
-```
+Answer: The artist could want to be able to name their files the old-fashioned way in order to keep track of their work and be able to reproduce what they have created and/or add onto their work in the future. Additionally, the files could be named this way in order to represent where they were created from, so the audience knows that the figures are originally from data wrangling in R. 
 
 ### Color Exercises
 
@@ -205,24 +212,30 @@ polar_art(seed = 76, n = 75, palette = sample_named_colors(seed = 76))
 3.  The `sample_canva()` function, as I’ve written it, preserves the original structure of the 150 palettes in `ggthemes::canva_palettes`, so that the 4 colours returned all belong to the same palette on the Canva website originally. Try breaking this constraint. If you call `unlist(ggthemes::canva_palettes)` you get a vector of 600 distinct colours. Write a palette generating function that samples colours randomly from that set of 600 colours.
 
 ```{r}
-
+#load library for reference
 library(ggthemes)
 
-# the original function from the first session
+#the original function from the first session
 sample_canva <- function(seed = NULL) {
+  #set seed to be random number generation
   if(!is.null(seed)) set.seed(seed)
+  #set sample of colors to come from set of possible colors
   sample(ggthemes::canva_palettes, 1)[[1]]
 }
 
-# the extended function used in later sessions
+#the extended function used in later sessions
 sample_canva2 <- function(seed = NULL, n = 4) {
+  #again set seed to be random number
   if(!is.null(seed)) set.seed(seed)
+  #select color from canva_palettes 
   sample(ggthemes::canva_palettes, 1)[[1]] |>
+    #identify seed for using colorRampPalette
     (\(x) colorRampPalette(x)(n))()  
 }
 
 #use code for setting up seed for sample_canva function 
 sample_canva <- function(seed = NULL) {
+  #set seed to be random selection again
   if(!is.null(seed)) set.seed(seed)
   #change from just ggthemes to unlist to get vector of 600 colors to sample from
   sample(unlist(ggthemes::canva_palettes), 1)[[1]]
@@ -242,15 +255,19 @@ library(ggplot2)
 library(tibble)
 library(dplyr)
 
-#not modified
+#using the sample_canva function again and setting seed to null
 sample_canva <- function(seed = NULL) {
+  #setting up random seed generation
   if(!is.null(seed)) set.seed(seed)
+  #choosing where color comes from aka the palette
   sample(ggthemes::canva_palettes, 1)[[1]]
 }
 
-#not modified
+#assigning object name and using function for setting seed and number
 sample_data <- function(seed = NULL, n = 100){
+  #set up random number generation
   if(!is.null(seed)) set.seed(seed)
+  #set restrictions for tibble for x and y
   dat <- tibble(
     x0 = runif(n),
     y0 = runif(n),
@@ -497,10 +514,7 @@ make_noise_art <- function(
   #use the generator to add paint
   canvas <- canvas |>
     #use paint within the mutate function and generate frequency
-    mutate(
-      paint = generator(
-        x, y, 
-        frequency = frequency, 
+    mutate(paint = generator(x, y, frequency = frequency, 
         #set seed information for later
         seed = seed, 
         ...
@@ -509,17 +523,24 @@ make_noise_art <- function(
   
   #use ggplot2 to draw the picture
   art <- canvas |> 
+    #begin ggplot and set basic aesthetics information 
     ggplot(aes(x, y, fill = paint)) + 
+    #add data using geom_raster
     geom_raster(show.legend = FALSE) +
+    #set blank theme
     theme_void() +
+    #set coordinates
     coord_equal() +
+    #set x axis scale
     scale_x_continuous(expand = c(0, 0)) +
+    #set y axis scale
     scale_y_continuous(expand = c(0, 0)) +
+    #set color gradient to use palette colors
     scale_fill_gradientn(colours = palette)
   #return figure
   return(art)}
 
-# call make_noise_art with idiosyncratic parameters
+#call make_noise_art with idiosyncratic parameters
 art <- make_noise_art(
   #CHANGED - alter the gen function that is used 
   generator = gen_worley,
@@ -532,7 +553,7 @@ art <- make_noise_art(
   #set number of pixels
   pixels = 1000)
 
-# save the plot to file with a generic file name
+#save the plot to file with a generic file name
 ggsave(
   #name the file and assign where it will go
   filename = here("output", "noise-art-2.png"), 
@@ -575,41 +596,67 @@ plot(art)
 Exercise: Try it yourself! In the materials folder there is a script called dplyr-ambient.R that defines blank_canvas and plot_painted_canvas() for you. At the bottom of the file there is space for you to add to the blank canvas. Try using dplyr and ambient together to create a spatial noise pattern of your own.
 
 ```{r}
+#load in data for sample_canva and set seed 
 sample_canva <- function(seed = NULL) {
+  #set up seed system for random generation
   if(!is.null(seed)) set.seed(seed)
+  #select sample for where colors come from for palettes
   sample(ggthemes::canva_palettes, 1)[[1]]
 }
 
+#create new dataframe using long_grid function 
 blank_canvas <- long_grid(
+  #set x sequencing and lenght
   x = seq(from = 0, to = 56, length.out = 400),
+  #set y sequencing and lenght
   y = seq(from = 0, to = 56, length.out = 400)
 ) 
 
+#create dataframe for plot of painted canvas information 
 plot_painted_canvas <- function(canvas, palette = NULL) {
-  if(is.null(palette)) {
+  #define palette as is.null 
+   if(is.null(palette)) {
+     #set colors that I want to use for the figure
     palette <- c("green","green3","green2","")
-  }
+   }
+  #create second pipe for canvas
   canvas |> 
+    #add in ggplot information and aesthetics for x and y 
     ggplot(aes(x, y, fill = paint)) + 
+    #add in data and hide legend
     geom_raster(show.legend = FALSE) +
+    #set blank theme
     theme_void() +
+    #set coordinates
     coord_equal() +
+    #set x axis
     scale_x_continuous(expand = c(0, 0)) +
+    #set y axis
     scale_y_continuous(expand = c(0, 0)) +
+    #set scale fill to palette
     scale_fill_gradientn(colours = palette)
 }
 
-# your code here! add to the blank canvas :)
+#my code here! adding to the blank canvas 
 blank_canvas |> 
+  #mutate data to add in different frequencies
   mutate(
+    #use gen_waves to alter figure
     lf_noise = gen_waves(x, y, frequency = 4),
+    #change frequency from above
     mf_noise = gen_waves(x, y, frequency = 16),
+    #set another new frequency
     hf_noise = gen_waves(x, y, frequency = 112),
+    #get gate for gen_simplex and assign x and y and frequency
     gate = gen_simplex(x, y, frequency = 8) |> normalise(),
+    #set paint for lf_noise information 
     paint = lf_noise +
+      #set numerical values for this constraint
       (6 + mf_noise) * (gate >= .5 & gate < .01) +
+      #set numerical values for this constraint
       (6 + hf_noise) * (gate >= .01)
   ) |>
+  #plot the data from information above 
   plot_painted_canvas(palette = sample_canva(seed = 498))
 ```
 
@@ -622,43 +669,60 @@ Exercises:
 1.  The easiest way to play around with fractals is to modify the basic arguments. Try changing the generator, fractal, freq_init (i.e., frequency value for the first octave), octaves, seed, and palette to make a piece you really like.
 
 ```{r}
+#new packaage perhaps
 library(purrr)
 
+#again using sample_canva as object name 
 sample_canva <- function(seed = NULL) {
+  #setting seed random generation
   if(!is.null(seed)) set.seed(seed)
+  #setting color palettes
   sample(ggthemes::canva_palettes, 1)[[1]]
 }
 
+#set to blank canvas and using long_grid for figure
 blank_canvas <- long_grid(
+  #set x sequence and lenght
   x = seq(from = 0, to = 1, length.out = 2000),
+  #set y sequence and lenght
   y = seq(from = 0, to = 1, length.out = 2000)
 ) 
 
+#plot the painted canvas data and use canvas and palette within function
 plot_painted_canvas <- function(canvas, palette = NULL) {
+  #set pallete within null
   if(is.null(palette)) {
+    #define exact colors within the palette of my choice
     palette <- c("#e5ddc8","#01949a","#004369","#db1f48")
   }
+  #set canvas for new pipe
   canvas |> 
+    #begin new ggplot and set aesthetics
     ggplot(aes(x, y, fill = paint)) + 
+    #add data using geom_raster and no legend
     geom_raster(show.legend = FALSE) +
+    #blank theme
     theme_void() +
+    #set coordinates
     coord_equal() +
+    #set x axis
     scale_x_continuous(expand = c(0, 0)) +
+    #set y axis
     scale_y_continuous(expand = c(0, 0)) +
+    #set fill to our defined color palette
     scale_fill_gradientn(colours = palette)
 }
 
+#set fractal art as object name and use fractal and generator within function 
 fractal_art <- function(fractal, generator, palette = NULL, ...) {
+  #set blank canvas and continue pipe
   blank_canvas |>
-    mutate(
-      paint = fracture(
-        noise = generator,
-        fractal = fractal,
-        x = x, 
-        y = y, 
+    #mutate function for paint, noise, and now fractal setting x and y to correct columns
+    mutate(paint = fracture(noise = generator, fractal = fractal, x = x, y = y, 
         ...
       )
     ) |>
+    #plot the outputted data and show colors
     plot_painted_canvas(palette = palette)
 }
 
@@ -676,27 +740,41 @@ fractal_art(fbm, gen_checkerboard, seed = 54, octaves = 3)
 3.  The fractal_art() function is written flexibly enough that you can pass your own gain functions and frequency functions. There’s an example of this above. Try writing your own functions to modify the gain and frequency rules that apply to the fractal.
 
 ```{r}
+#assigning new object name and multiplying by 05
 gf <- function(x) x * .05
+#creating new picture using rigied and gen_simplex and new seeds and octaves settings
 fractal_art(ridged, gen_simplex, seed = 54, octaves = 4, gain = gf)
 ```
 
 4.  Using the gen_scope() and gen_gate() examples to motivate you, write your own generator function. See what effect that has.
 
 ```{r}
+#use new function to write new generator function 
 gen_scope <- function(x, y, frequency, ...) {
+  #set generator to speheres and set frequency
   lf <- gen_spheres(x, y, frequency = frequency, ...)
+  #more set up for generator function and frequency at 2
   mf <- gen_spheres(x, y, frequency = frequency * 2, ...)
+  #more set up for generator function and new frequency
   hf <- gen_spheres(x, y, frequency = frequency * 4, ...)
+  #more set up for generator function and largest freqency
   gate <- gen_spheres(x, y, frequency = frequency * 6, ...) 
+  #set gate to normalise it
   gate <- normalise(gate)
+  #set paint information 
   paint <- lf + 
+    #set values for gate and changed this around 
     (mf + 2) * (gate >= .05 & gate < .05) + 
+    #changed this around too to see what would happen 
     (hf + 2) * (gate >= .5)
+  #show output 
   return(paint)
 }
 
+#set seed for colors
 pal <- sample_canva(seed = 14)
 
+#show fractal based art and identify billow within the code and set seed and octaves again
 fractal_art(billow, gen_scope, palette = pal, seed = 15, octaves = 6)
 ```
 
@@ -709,205 +787,209 @@ Exercise:
 1.  Run both scripts, and compare the difference in rendering times
 
 ```{r}
+#load new package
 library(tictoc)
 
 #answer: the first code chunk takes 0.422 sec while the second takes longer at 2.91 sec 
 
-#curl-art-1.R code
-curl_data <- function(
-    data, 
-    iterations = 50,
-    step_size = .001,
+#curl-art-1.R code and set iteratons 
+curl_data <- function(data, iterations = 50, step_size = .001,
     ...
 ) {
-  
+  #update new object name and again use function 
   update <- function(current_state, iteration, ...) {
-    curl <- curl_noise(
-      x = current_state$x, 
-      y = current_state$y,
-      generator = fracture,
+    #use curl_noise to change how the figure looks and set x and y
+    curl <- curl_noise(x = current_state$x, y = current_state$y, generator = fracture,
       ...
     )
+    #set new object name and continue to pipe
     next_state <- current_state |>
-      mutate(
-        x = x + curl$x * step_size,
-        y = y + curl$y * step_size,
-        time = time + 1
+      #mutate and set x and y and also time plus one
+      mutate(x = x + curl$x * step_size, y = y + curl$y * step_size, time = time + 1
       )
+    #tell R what to return
     return(next_state)
   }
-  
+  #set data and mutate it
   data |> 
+    #mutate by row and time
     mutate(id = row_number(), time = 1) |>
+    #use new accumulate function to set iterations
     accumulate(1:iterations, update, .init = _, ...) |>
+    #bind all the rows together
     bind_rows()
 }
 
+#new object name and again use of function but nothing inside
 curl_art <- function(...) {
+  #curl data again and set ggplt
   curl_data(...) |> 
+    #define aesthetics and group 
     ggplot(aes(x, y, group = id)) + 
+    #set geom of choice for data 
     geom_path() +
+    #blank theme
     theme_void() + 
+    #set coordinates
     coord_equal() 
 }
 
+#set small grid and long_grid to identify size
 smol_grid <- long_grid(x = 1:20, y = 1:20)
 
+#assign to pic objectname 
 pic <- smol_grid |>
+  #mutate data and normalise it by x and y 
   mutate(x = normalise(x), y = normalise(y)) |>
+  #pipe in the curl art again and add in fractal and octave information 
   curl_art(noise = gen_simplex, fractal = fbm, octaves = 4, freq_init = .5)
 
+#time it takes
 tic()
-ggsave(
-  filename = here("output", "curl-art-1.png"), 
-  plot = pic,
-  width = 2000,
-  height = 2000,
-  units = "px",
-  dpi = 300,
-  bg = "white"
-)
-toc()
 
-
-#curl-art-2.R code
-curl_data <- function(
-    data, 
-    iterations = 50,
-    step_size = .001,
+#curl-art-2.R code and set iterations adn setp size again
+curl_data <- function(data, iterations = 50, step_size = .001,
     ...
 ) {
-  
+  #update the code new object name
   update <- function(current_state, iteration, ...) {
-    curl <- curl_noise(
-      x = current_state$x, 
-      y = current_state$y,
-      generator = fracture,
+    #curl function again and generator function 
+    curl <- curl_noise(x = current_state$x, y = current_state$y, generator = fracture,
       ...
     )
+    #set next state as current state and pipe in 
     next_state <- current_state |>
-      mutate(
-        x = x + curl$x * step_size,
-        y = y + curl$y * step_size,
-        time = time + 1
+      #pipe in the mutate function to the information 
+      mutate(x = x + curl$x * step_size, y = y + curl$y * step_size, time = time + 1
       )
+    #return output of next_state
     return(next_state)
   }
-  
+  #new pipe for data
   data |> 
+    #mutate again by row and time
     mutate(id = row_number(), time = 1) |>
+    #pipe in accumulate function for iterations
     accumulate(1:iterations, update, .init = _, ...) |>
+    #bind the rows together
     bind_rows()
 }
 
-curl_art <- function(...) {
-  curl_data(...) |> 
+#curl art again function
+curl_art <- function(...) {curl_data(...) |> 
+    #new ggplot and set aesthetics
     ggplot(aes(x, y, group = id)) + 
+    #set geom of choice
     geom_path() +
+    #set blank theme
     theme_void() + 
+    #set coordinates
     coord_equal() 
 }
-
+#set custom data using function again
 custom_curl_data <- function(data) {
-  curl_data(
-    data = data,
-    iterations = 80, 
-    octaves = 10,
-    fractal = ridged,
-    noise = gen_cubic,
-    freq_init = 1,
-    frequency = ~ . * 1.2,
-    gain_init = 1,
-    gain = ~ . * .9,
-    seed = 1
+  #set critical information for what will be used and show with octaves, fractals, etc as usual
+  curl_data(data = data, iterations = 80, octaves = 10, fractal = ridged, noise = gen_cubic, freq_init = 1, frequency = ~ . * 1.2, gain_init = 1, gain = ~ . * .9, seed = 1
   )
 }
 
+#assign new object name and set number of n
 circle <- function(n = 100) {
-  tibble(
-    theta = 2 * pi * (1:n) / n, 
-    x = cos(theta),
-    y = sin(theta)
+   #using tible again and multiply by pi and divide by n
+   tibble(theta = 2 * pi * (1:n) / n, x = cos(theta), y = sin(theta)
   )
 }
 
+#assign new object name and select circle value
 dat1 <- circle(5000) |> 
+  #call data
   custom_curl_data()
 
+#assign new object name and select circle value
 dat2 <- circle(5000) |>
+  #mutate data
   mutate(x = x * .99, y = y * .99) |>
+  #call data
   custom_curl_data()
 
+#call new object name to be new ggplot 
 pic <- ggplot(mapping = aes(x, y, group = time)) +
+  #select geom of interest
   geom_polygon(data = dat1, fill = "#ffffff10") +
+  #select geom of interest
   geom_polygon(data = dat2, fill = "#22222205") +
+  #blank theme
   theme_void() +
+  #set coordinates
   coord_equal()
 
+#time it takes
 tic()
-ggsave(
-  filename = here("output", "curl-art-2.png"), 
-  plot = pic,
-  width = 2000,
-  height = 2000,
-  units = "px",
-  dpi = 300,
-  bg = "white"
+#save document to specific file name 
+ggsave(filename = here("output", "curl-art-2.png"), 
+  #settings for the output file when it is done
+  plot = pic, width = 2000, height = 2000, units = "px", dpi = 300, bg = "white"
 )
+#time it takes
 toc()
 ```
 
 2.  Modify the “small grid” version so that it produces smoother looking results.
 
 ```{r}
-
-curl_data <- function(
-    data, 
-    iterations = 50,
-    step_size = .001,
+#modify the curl data iterations
+curl_data <- function(data, iterations = 50, step_size = .001,
     ...
 ) {
-  
+  #update the function to current_state and iteration
   update <- function(current_state, iteration, ...) {
-    curl <- curl_noise(
-      x = current_state$x, 
-      y = current_state$y,
-      generator = fracture,
+    #set curl x and y 
+    curl <- curl_noise(x = current_state$x, y = current_state$y, enerator = fracture,
       ...
     )
+    #set next state and pipe into current 
     next_state <- current_state |>
-      mutate(
-        x = x + curl$x * step_size,
-        y = y + curl$y * step_size,
-        time = time + 1
+      #mutate using x and y and set time
+      mutate(x = x + curl$x * step_size, y = y + curl$y * step_size, time = time + 1
       )
+    #return output
     return(next_state)
   }
-  
+  #new pipe for data
   data |> 
+    #mutate again by row number and ste time
     mutate(id = row_number(), time = 1) |>
+    #accumulate using iterations 
     accumulate(1:iterations, update, .init = _, ...) |>
+    #bind rows together
     bind_rows()
 }
 
+#another curl_art and function is empty
 curl_art <- function(...) {
+  #curl data also empty then pipe
   curl_data(...) |> 
+    #ggplot with new x and y and group
     ggplot(aes(x, y, group = id)) + 
+    #set geom
     geom_path() +
+    #set blank theme
     theme_void() + 
+    #set axis coordinates
     coord_equal() 
 }
 
+#use small grid and assignment to long grid and set
 smol_grid <- long_grid(x = 1:20, y = 1:20)
 
-pic <- smol_grid |>
-  mutate(x = normalise(x), y = normalise(y)) |>
-  #smooth it by changing this to gen_waves
-  curl_art(noise = gen_waves, fractal = fbm, octaves = 4, freq_init = .5)
 
+#time it takes
 tic()
+#save file 
 ggsave(
+  #assign name to file 
   filename = here("output", "curl-art-1.png"), 
+  #set information for how the output will be and dimensions
   plot = pic,
   width = 2000,
   height = 2000,
@@ -915,48 +997,42 @@ ggsave(
   dpi = 300,
   bg = "white"
 )
+#time it takes
 toc()
-
+#show the output
 plot(pic)
 ```
 
 3.  Explore what you can do with the “genesis style”. It’s a powerful technique that can do a lot more than I’ve done in this code. By now you should have a good sense of what dials you can turn: the fractal, the generator, the parameters, the palette, etc. You can use dplyr to modify the data if you want to. Try to make something you really like!
 
 ```{r}
-
+#use new object name and function use data
 custom_curl_data <- function(data) {
-  curl_data(
-    data = data,
-    iterations = 4, 
-    octaves = 8,
+  #set data and iterations and octaves
+  curl_data(data = data, iterations = 4, octaves = 8,
     #change the fractal to be fbm not rigid
-    fractal = fbm,
-    noise = gen_cubic,
-    freq_init = 5,
-    frequency = ~ . * 3,
-    gain_init = 2,
-    gain = ~ . * .5,
-    seed = 79
+    fractal = fbm, noise = gen_cubic, freq_init = 5, frequency = ~ . * 3,
+    #change gain and seed values
+    gain_init = 2, gain = ~ . * .5, seed = 79
   )
 }
 
-dat1 <- circle(5000) |> 
-  custom_curl_data()
-
-dat2 <- circle(5000) |>
-  mutate(x = x * .99, y = y * .99) |>
-  custom_curl_data()
-
+#create new plot and set aesthetics and group
 ggplot(mapping = aes(x, y, group = time)) +
+  #set polygon geom and color outline pink
   geom_polygon(data = dat1, fill = "hotpink") +
+  #color the inside in gray 
   geom_polygon(data = dat2, fill = "#22222210") +
+  #blank theme
   theme_void() + 
+  #coordinates set
   coord_equal()
 ```
 
 ## Part 2d: Art Of Your Choice: Iterated Function Systems
 
 ```{r}
+#load in needed packages
 library(Rcpp)
 library(ggplot2)
 library(tibble)
@@ -971,86 +1047,104 @@ library(tictoc)
 Exercise: Code for this system is included in the barnsley-fern.R script.
 
 ```{r}
+#add in new object and function for coord
 fern_transform <- function(coord, ind) {
-  
   # coefficients for the stem function f_1
   if(ind == 1) {
-    mat <- matrix(c(0, 0, 0, .16), 2, 2) # matrix to multiply
-    off <- c(0, 0)                       # offset vector to add
+    #matrix to multiply
+    mat <- matrix(c(0, 0, 0, .16), 2, 2) 
+    #offset vector to add
+    off <- c(0, 0)                       
   }
-  
-  # coefficients for the small leaflet function f_2
+  #coefficients for the small leaflet function f_2
   if(ind == 2) {
+    #matrix to multiply
     mat <- matrix(c(.85, -.04, .04, .85), 2, 2)
+    #offset vector to add
     off <- c(0, 1.6)                      
   }
-  # coefficients for the right-side function f_3
+  #coefficients for the right-side function f_3
   if(ind == 3) {
+    #matrix to multiply
     mat <- matrix(c(.2, .23, -.26, .22), 2, 2)
+    #offset vector to add
     off <- c(0, 1.6)                      
   }
   
-  # coefficients for the left-side function f_4
+  #coefficients for the left-side function f_4
   if(ind == 4) {
+    #matrix to multiply
     mat <- matrix(c(-.15, .26, .28, .24), 2, 2)
+    #offset vector to add
     off <- c(0, .44)                     
   }
   
-  # return the affine transformed coords
+  #return the affine transformed coords
   coord <- mat %*% coord + off
   return(coord)
 }
 
+#new object and set iterations different and seed null
 fern_chaos <- function(iterations = 10000, seed = NULL) {
+  #set seed information
   if(!is.null(seed)) set.seed(seed)
   
-  # which transformation to apply at each iteration
-  transform_index <- sample(
-    x = 1:4, 
-    size = iterations, 
-    replace= TRUE, 
-    prob = c(.01, .85, .07, .07)
+  #which transformation to apply at each iteration
+  transform_index <- sample(x = 1:4, 
+    #set size and replace and prob
+    size = iterations, replace= TRUE, prob = c(.01, .85, .07, .07)
   )
   
-  # initialise chaos game at the origin
+  #initialise chaos game at the origin
   start <- matrix(c(0, 0))
   
   # helper function to collapse accumulated output
   bind_to_column_matrix <- function(lst) {
+    #bind the data
     do.call(cbind, lst)
   }
   
   # iterate until done!
   coord_matrix <- transform_index |>
+    #accumulate the data and start
     accumulate(fern_transform, .init = start) |>
+    #bind the data to the new object
     bind_to_column_matrix() 
   
   # tidy the output, add extra columns, and return
   coord_df <- t(coord_matrix) |> 
+    #lead to data
     as.data.frame() 
+  #set coord for x and y 
   names(coord_df) <- c("x", "y")
+  #new pipe for coord_df
   coord_df <- coord_df |>
+    #new tibble and mutate below
     as_tibble() |>
-    mutate(
-      transform = c(0, transform_index),
-      iteration = row_number() - 1
+    #mutate transform and iteration
+    mutate(transform = c(0, transform_index), iteration = row_number() - 1
     )
+  #return output
   return(coord_df)
 }
-
+#fern data and seed choose
 fern_dat <- fern_chaos(seed = 1)
-
+#pic object for ggplot and fern set aesthetics
 pic <- ggplot(fern_dat, aes(x, y, colour = iteration)) +
+  #set geom and size and stroke
   geom_point(size = 1, stroke = 0) +
+  #set coordinates
   coord_equal() +
+  #blank theme
   theme_void() + 
+  #set guides for legend color
   guides(colour = guide_legend(
     title = "transformation", 
+    #override the list and set size
     override.aes = list(size = 5))
   )
-
+#show the plot of pic
 plot(pic)
-
 ```
 
 ### Chaos Game for the Barnsley Fern Exercise
@@ -1209,109 +1303,142 @@ mtcars_figure <- function(seed, n, palette, seed_spatial, freq_spatial, fern_poi
   
   # Data frame containing random values for aesthetics
   dat <- tibble(
-    x0 = runif(n),
-    y0 = runif(n),
+    #set x and y values using runif command
+    x0 = runif(n), y0 = runif(n),
+    #set x min and max values
     x1 = x0 + runif(n, min = -.2, max = .2),
+    #set y min and max values
     y1 = y0 + runif(n, min = -.2, max = .2),
-    shade = runif(n), 
-    size = runif(n),
-    paint = sample(spatial_data$paint, n)
+    #set expectations for shade, size, and paint of tibble
+    shade = runif(n), size = runif(n),paint = sample(spatial_data$paint, n)
   )
+
   
-  # Plot segments with a black border in various colors using the generated palette
+  #plot segments with a black border in various colors using the generated palette
   plot <- dat |> 
-    ggplot(aes(
-      x = x0,
-      y = y0,
-      xend = x1,
-      yend = y1,
-      colour = shade,
-      size = size,
-      fill = paint
+    #set ggplot x and y in aesthetics 
+    ggplot(aes(x = x0, y = y0, xend = x1, yend = y1,
+      #set information for color, size, and fill of plot
+      colour = shade, size = size, fill = paint
     )) +
+    #add in geom_segment to show data and don't show legend
     geom_segment(show.legend = FALSE) +  
+    #add in geom_raster to show data this way too and no legend
     geom_raster(show.legend = FALSE) +
+    #set coordinates for plot size
     coord_equal() +
+    #set y axis 
     scale_y_continuous(expand = c(0, 0)) +
+    #set x axis 
     scale_x_continuous(expand = c(0, 0)) + 
+    #set color gradient using color palette
     scale_colour_gradientn(colours = palette) + 
+    #set the size to range from 0 to 10
     scale_size(range = c(0, 10)) + 
+    #fill the color with seed_spatial from sample_canva from above
     scale_fill_gradientn(colours = sample_canva(seed_spatial)) +
+    #set blank theme
     theme_void() 
   
-  # Add the fern points as an additional layer
+  #add the fern points as an additional layer
   plot <- plot + 
+    #add in data using geom_point and identify x and y data points, set color, and transparency
     geom_point(data = fern_points, aes(x = x / 10, y = y / 10), color = "skyblue4", size = 0.2, alpha = 0.7, inherit.aes = FALSE)
-  
+  #show the plot
   return(plot)
 }
 
-# Function to generate Barnsley fern points
+#function to generate Barnsley fern points
 fern_transform <- function(coord, ind) {
-  if(ind == 1) {
+   #edit the exact matrix of the fern data
+   if(ind == 1) {
     mat <- matrix(c(0, 0, 0, .16), 2, 2)
     off <- c(0, 0)
-  }
+   }
+  #continue to edit the matrix of the fern data
   if(ind == 2) {
     mat <- matrix(c(.85, -.04, .04, .85), 2, 2)
     off <- c(0, 1.6)
   }
+  #continue to edit the matrix of the fern data
   if(ind == 3) {
     mat <- matrix(c(.2, .23, -.26, .22), 2, 2)
     off <- c(0, 1.6)
   }
+  #continue to edit the matrix of the fern data
   if(ind == 4) {
     mat <- matrix(c(-.15, .26, .28, .24), 2, 2)
     off <- c(0, .44)
   }
+  #edit the coordinates of the matrices
   coord <- mat %*% coord + off
+  #return the output we want
   return(coord)
 }
 
+#create the plot setting up by defining the number for iterations and the seed number
 fern_chaos <- function(iterations = 10000, seed = NULL) {
+  #set up random seed generation method 
   if(!is.null(seed)) set.seed(seed)
-  transform_index <- sample(
-    x = 1:4, 
-    size = iterations, 
-    replace= TRUE, 
-    prob = c(.01, .85, .07, .07)
+  #use transform function for x values and replace using iterative function
+  transform_index <- sample(x = 1:4, 
+    #set size as iterations, set replace commend and prob with string 
+    size = iterations, replace= TRUE, prob = c(.01, .85, .07, .07)
   )
+  #set starting matrix
   start <- matrix(c(0, 0))
+  #bind matrices together
   bind_to_column_matrix <- function(lst) {
     do.call(cbind, lst)
   }
+  #set coordinates for matrix and utilize transform_index
   coord_matrix <- transform_index |>
+    #use accumulate function with ferm_transform data
     accumulate(fern_transform, .init = start) |>
+    #bind matrices
     bind_to_column_matrix() 
+  #repeat process from above
   coord_df <- t(coord_matrix) |> 
+    #repeat process from above
     as.data.frame() 
+  #repeat process from above
   names(coord_df) <- c("x", "y")
+  #repeat process from above using tibble 
   coord_df <- coord_df |>
+    #apply tibble function for this case
     as_tibble() |>
+    #mutate data to transform it by iteration through row numbers minus 1
     mutate(
       transform = c(0, transform_index),
       iteration = row_number() - 1
     )
+  #return output
   return(coord_df)
 }
 
-# Generate a small number of fern points
+#generate a small number of fern points
 fern_points <- fern_chaos(iterations = 500, seed = 1)
 
-# Set parameters
+#get parameters
 seed <- 45
+#set number
 n <- 40
+#define palette of choice
 palette <- c("grey90", "cadetblue4", "lightblue", "lightblue3", "grey95", "skyblue4")
+#set seed spatial
 seed_spatial <- 100
+#set frequency of spatial information
 freq_spatial <- 10
 
-# Create the mtcars figure
-mtcars_seed <- mtcars_figure(seed = seed, n = n, palette = palette, seed_spatial = seed_spatial, freq_spatial = freq_spatial, fern_points = fern_points)
+#create the mtcars figure
+mtcars_seed <- mtcars_figure(seed = seed, n = n, palette = palette, seed_spatial = seed_spatial,
+                             #set frequency of data and include in ferm_points information 
+                             freq_spatial = freq_spatial, fern_points = fern_points)
 
-# Plot the mtcars figure
+#plot the mtcars figure
 plot(mtcars_seed)
 ```
-### Figure 1 Caption: 
+**Figure 1 Caption:**
 Figure 1 Title: A fern admist chaos. Figure created: 06-4-24. Inspiration: I was inspired to create this piece because I was really drawn to both the geometric shapes within the introductory lesson as well as the concept of being able to create artwork resembling nature within a technology like R Studio. I thought it would be fun to combine the two ideas of something that looks more technical with something that resembles nature to have an artistic juxtaposition. Specific Components: I utilized the random palette generator from the introductory exercises (part b) to get randomized data for the art piece as well as using the tibble function to create a new dataframe for these random values and set aesthetics. From part c which focused on spatial noise I used the method of generating spatial noise data, setting frequencies and seeds. Finally, from part d which focused on iterated function systems I included a smaller blue figure of a fern on top of the existing artpiece to create dimension through the Barnsley fern points method, setting up matrices and generating iterations.
 
 ### Art Piece 2
@@ -1357,8 +1484,7 @@ tic()
 unboxer_base(3 * mil, layers = 3, seed = 2) |> 
   unbox_art(seed = 2, size = .9)
 ```
-
-### Figure 2 Caption: 
+**Figure 2 Caption:**
 Figure 2 Title: Spiderweb Void. Figure created: 06-4-24. Inspiration: I was inspired to create this piece because I wanted to see what I would be able to do without using colors to define the artwork. I really liked what Danielle Navarro did with one of her figures from the iterated function systems where she created art that looked like a cloud of smoke, and I wanted to create something that was inspried by this but more geometric. Specific Components: I utilized the sample_canva code from part b to set up my random seed generation for the rest of the code for the figure. Additionally, I used the geom_polygon function which we used in part c within the spatial noise exercises and added that to my ggplot to create a more dynamic figure. Lastly, I incorporated the code from part d (iterated function systems) via the ggplot code and the unboxer_base method. 
 
 ### Art Piece 3
@@ -1389,6 +1515,12 @@ smol_simplex |>
   #setting coord requirements to standard
   coord_equal() 
 ```
-
-### Figure 3 Caption: 
+**Figure 3 Caption:** 
 Figure 3 Title: Cotton-Candy Code. Figure created: 06-4-24. Inspiration: For my final artpiece I really wanted to focus on color, specifically utilizing a color palette that I curated myself and really liked. I though that the combination of pink and blue was a fun representation of the colors of cotton-candy. Specific Components: I selected my palette using references to code from part b the introductory lesson. Additionally, I used spatial noise tricks from part c to create the grid-like shape of the piece and the general ggplot. Lastly, I used the geom_point and specifically stroke function from part d of iterative function systems to add in little white dots and add dimension to the figure. 
+
+## Summary 
+
+Overall, this process was really difficult for me. So far in the course I have felt relatively confident in my coding abilities and this assignment was very difficult for me. Working through this, so much of it seemed foreign to me that I felt like I was learning an entirely new programming software. My biggest takeaway was that R studio has a much greater capacity than what I had originally thought. I was completely unaware of all of the new programming methods and functions and honestly suprised by the level of creativity I was able to have in what I thought was a much more rigid software. Creating the artwork was a totally new process for me, as the closest I have ever come to doing something similar is working on making a ggplot pretty with different colors and themes. I learned that there is so much more to R than I can possibly be aware of and that no matter how much I think I know I will always been continuing to learn when working with R. The exercises were honestly very difficult for me and I was really struggling to understand certain parts of the process, especially I think because the way the code was formatted was more spread out than what I am used to, so it was tougher for me to see where one function ended and another began. Overall, my main takeaway was that this was really challenging, but I definetly learned new things. 
+
+
+
