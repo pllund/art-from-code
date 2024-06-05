@@ -1174,7 +1174,6 @@ plot(pic)
 Create 3 art pieces that combines elements of what you learned from parts b-d.
 
 ### Art Piece 1
-
 ```{r}
 
 # Function to generate random palettes
@@ -1311,12 +1310,57 @@ mtcars_seed <- mtcars_figure(seed = seed, n = n, palette = palette, seed_spatial
 
 # Plot the mtcars figure
 plot(mtcars_seed)
-
-
-
 ```
 ### Figure 1 Caption: 
 Figure 1 Title: A fern admist chaos. Figure created: 06-4-24. Inspiration: I was inspired to create this piece because I was really drawn to both the geometric shapes within the introductory lesson as well as the concept of being able to create artwork resembling nature within a technology like R Studio. I thought it would be fun to combine the two ideas of something that looks more technical with something that resembles nature to have an artistic juxtaposition. Specific Components: I utilized the random palette generator from the introductory exercises (part b) to get randomized data for the art piece as well as using the tibble function to create a new dataframe for these random values and set aesthetics. From part c which focused on spatial noise I used the method of generating spatial noise data, setting frequencies and seeds. Finally, from part d which focused on iterated function systems I included a smaller blue figure of a fern on top of the existing artpiece to create dimension through the Barnsley fern points method, setting up matrices and generating iterations.
+
+### Art Piece 2
+```{r}
+#FROM PART B
+sample_canva2 <- function(seed = NULL, n = 4) {
+  if(!is.null(seed)) set.seed(seed)
+  sample(ggthemes::canva_palettes, 1)[[1]] |>
+    (\(x) colorRampPalette(x)(n))()  
+}
+
+#FROM PART D
+unbox_art <- function(data, seed = NULL, size = 1) {
+  
+  # convert to data frame and sample a palette
+  data <- data |> as.data.frame() |> as_tibble()
+  names(data) <- c("x", "y", "c", "l", "t")[1:ncol(data)]
+  shades <- sample_canva2(seed)
+  
+  # render image as a scatter plot
+  ggplot(data, aes(x, y, colour = c)) +
+    geom_point(
+      size = size,
+      stroke = 0,
+      show.legend = FALSE
+    ) + 
+    #FROM PART C - geom_polygon used in this case to add to existing ggplot
+    geom_polygon(
+      size = size, 
+      stroke = 0, 
+      show.legend = FALSE) + 
+    theme_void() + 
+    coord_equal(xlim = c(-4, 4), ylim = c(-4, 4)) + 
+    scale_colour_gradientn(colours = shades) + 
+    scale_x_continuous(expand = c(0, 0)) +
+    scale_y_continuous(expand = c(0, 0)) +
+    theme(panel.background = element_rect(
+      fill = shades[1], colour = shades[1]
+    ))
+}
+mil <- 1000
+tic()
+unboxer_base(3 * mil, layers = 3, seed = 2) |> 
+  unbox_art(seed = 2, size = .9)
+```
+
+### Figure 2 Caption: 
+Figure 2 Title: Spiderweb Void. Figure created: 06-4-24. Inspiration: I was inspired to create this piece because I wanted to see what I would be able to do without using colors to define the artwork. I really liked what Danielle Navarro did with one of her figures from the iterated function systems where she created art that looked like a cloud of smoke, and I wanted to create something that was inspried by this but more geometric. Specific Components: I utilized the sample_canva code from part b to set up my random seed generation for the rest of the code for the figure. Additionally, I used the geom_polygon function which we used in part c within the spatial noise exercises and added that to my ggplot to create a more dynamic figure. Lastly, I incorporated the code from part d (iterated function systems) via the ggplot code and the unboxer_base method. 
+
 
 
 
