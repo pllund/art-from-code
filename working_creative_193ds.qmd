@@ -12,6 +12,7 @@ format:
 ## Part 2a: Get set up
 
 Link to GitHub repository: https://github.com/pllund/art-from-code 
+
 Link to rendered .html: https://pllund.github.io/art-from-code/working_creative_193ds.html 
 
 ## Part 2b: Introductory Exercises
@@ -163,7 +164,7 @@ Answer: The artist could want to be able to name their files the old-fashioned w
 
 1.  In the materials folder there is a file called `palette-generators.R` that contains a copy of the `sample_canva()` function. Take a look and try calling the function a few times to see what kind of output it produces. You may find it handy to use `show_col()` to visualise the results.
 
-```{r}
+```{r, message=FALSE}
 #load in necessary package
 library(ggthemes)
 library(scales)
@@ -330,7 +331,7 @@ polar_styled_plot(data = dat, palette = pal) +
 
 2.  In the examples above and the previous exercise you saw that the `polar_styled_plot()` function plays the role of defining an overarching “style” for possible art pieces, but it doesn’t completely constrain artistic freedom. Your task in this exercise is to try to write a `my_styled_plot()` that does something similar… but creates a different style that you can explore
 
-```{r, warning=FALSE}
+```{r, warning=FALSE, message=FALSE}
 #sample palete a random using seed 
 sample_canva <- function(seed = NULL) {
   #set seed and restrictions
@@ -477,7 +478,7 @@ Exercises:
 
 1.  In the materials folder there is a file called make-noise-art.R that includes the make_noise_art() function. Unlike the code I’ve shown here, the version in the script writes the output to a file (located at output/noise-art.png). Try playing around with the inputs to make_noise_art() to see what outputs you can create.
 
-```{r}
+```{r, warning=FALSE, message=FALSE}
 #install new package for this section
 library(here)
 
